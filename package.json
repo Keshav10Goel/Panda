@@ -1,0 +1,16 @@
+{
+  "name": "panda",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Privacy-first menstrual health intelligence platform for Indian college students",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspaces",
+    "build": "npm run build --workspaces",
+    "test": "npm run test --workspaces",
+    "lint": "npm run lint --workspaces"
+  }
+}
