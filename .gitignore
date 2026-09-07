@@ -1,7 +1,14 @@
 node_modules
-
 .next
-node_modules
 dist
 .env
 .env.*
+
+# Generated files
+*.tsbuildinfo
+apps/api/src/generated/
+
+# Local AI/tooling files
+.agents/
+.claude/
+.windsurf/
