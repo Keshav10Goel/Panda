@@ -7,10 +7,14 @@ import * as argon2 from 'argon2';
 import { PrismaService } from '../prisma/prisma.service.js';
 import { LoginDto } from './dto/login.dto.js';
 import { RegisterDto } from './dto/register.dto.js';
+import { SessionService } from './session.service.js';
 
 @Injectable()
 export class AuthService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly sessionService: SessionService,
+  ) {}
 
   async register(dto: RegisterDto) {
     const email = dto.email.trim().toLowerCase();
@@ -67,6 +71,8 @@ export class AuthService {
       throw new UnauthorizedException('Account is not active');
     }
 
+    const session = await this.sessionService.createSession(user.id);
+
     return {
       user: {
         id: user.id,
@@ -74,6 +80,10 @@ export class AuthService {
         status: user.status,
         createdAt: user.createdAt,
       },
+      session: {
+        expiresAt: session.expiresAt,
+      },
+      token: session.token,
     };
   }
 }
